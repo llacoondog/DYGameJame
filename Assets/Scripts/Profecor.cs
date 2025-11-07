@@ -14,6 +14,8 @@ public class Profecor : MonoBehaviour
 
     [SerializeField] GameObject fakeArrowOB;
     [SerializeField] LineRenderer fakeLine;
+    SkillManager skillManager;
+
 
     public int score;
     
@@ -32,6 +34,7 @@ public class Profecor : MonoBehaviour
         arrow = arrowOB.GetComponent<Arrow>();
         rigid = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
+        skillManager = GetComponent<SkillManager>();
     }
 
 
@@ -54,7 +57,7 @@ public class Profecor : MonoBehaviour
     {
         if(isInLab) return;
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(mousePosition);
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -81,6 +84,12 @@ public class Profecor : MonoBehaviour
     void KeyboardInputAction()
     {
         rigid.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * 3f, Input.GetAxis("Vertical") * 3f);
+
+        if(isInLab) return; 
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            skillManager.UseSkill_bait();
+        }
     }
 
     public void SetShooting(bool isShooting)

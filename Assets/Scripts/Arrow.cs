@@ -15,11 +15,13 @@ public class Arrow : MonoBehaviour
     public int CaptureCount => captureCount;
     public float BaseReach => baseReach;
     float charge;
+    CircleCollider2D circleCollider;
 
     void Start()
     {
         profecor = transform.parent.parent.GetComponent<Profecor>();
         profecor.onArrowEnd += OnArrowEnd;
+        circleCollider = GetComponent<CircleCollider2D>();
         SetSpeed(0f);
     }
 
@@ -30,6 +32,7 @@ public class Arrow : MonoBehaviour
     IEnumerator ShootCoroutine(float charge)
     {
         this.charge = charge;
+        circleCollider.enabled = true;
         profecor.SetShooting(true);
         reach = baseReach + baseReach * charge;
         // 앞으로 간다
@@ -50,6 +53,7 @@ public class Arrow : MonoBehaviour
         }
         OnArrowEnd();
         profecor.SetShooting(false);
+        circleCollider.enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -77,7 +81,9 @@ public class Arrow : MonoBehaviour
         
         for(int i = transform.childCount; i  > 0; i--)
         {
-            Destroy(transform.GetChild(i-1).gameObject);
+            transform.GetChild(i-1).GetComponent<Student>().MoveToLab();
+            transform.GetChild(i-1).SetParent(null);
+            // Destroy(transform.GetChild(i-1).gameObject);
         }
     }
 
