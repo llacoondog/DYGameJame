@@ -1,30 +1,79 @@
+using System.Collections;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+
+    [SerializeField] float baseReach;
+    [SerializeField] float reach;
+    [SerializeField] float baseSpeed;
+    [SerializeField] float speed;
+    [SerializeField] int limit;
+
     Profecor profecor;
     int captureCount;
+    public int CaptureCount => captureCount;
+    public float BaseReach => baseReach;
+    float charge;
 
     void Start()
     {
-        profecor = transform.parent.GetComponent<Profecor>();
+        profecor = transform.parent.parent.GetComponent<Profecor>();
         profecor.onArrowEnd += OnArrowEnd;
+        SetSpeed(0f);
+    }
+
+    public void Shoot(float charge)
+    {
+        StartCoroutine(ShootCoroutine(charge));
+    }
+    IEnumerator ShootCoroutine(float charge)
+    {
+        this.charge = charge;
+        profecor.SetShooting(true);
+        reach = baseReach + baseReach * charge;
+        // 앞으로 간다
+        float distance = 0;
+        for(distance = 0f; distance < reach; )
+        {
+            transform.localPosition += new Vector3(baseSpeed + baseSpeed * charge,0,0) * Time.deltaTime;
+            distance = transform.localPosition.x;
+            yield return null;
+        }
+
+        // 뒤로 간다
+        for(distance = reach; distance > 0f; )
+        {
+            transform.localPosition -= new Vector3(speed,0,0) * Time.deltaTime;
+            distance = transform.localPosition.x;
+            yield return null;
+        }
+        OnArrowEnd();
+        profecor.SetShooting(false);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if(captureCount >= limit) return;
+        
         if(other.gameObject.CompareTag("Student"))
         {
             other.GetComponent<Student>().OnCapture();
             other.transform.SetParent(transform);
             captureCount++;
+            SetSpeed(this.charge);
         }
+    }
+    void SetSpeed(float charge)
+    {
+        this.speed = Mathf.Max(baseSpeed - (captureCount * 2f) + (baseSpeed * charge), 1f);
     }
 
     void OnArrowEnd()
     {
         profecor.AddScore(captureCount);
         captureCount = 0;
+        SetSpeed(0f);
         
         for(int i = transform.childCount; i  > 0; i--)
         {

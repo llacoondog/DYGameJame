@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Student
   - KillZone
+  - Lab
   layers:
   - Default
   - TransparentFX

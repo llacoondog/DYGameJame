@@ -9,6 +9,7 @@ public class Student : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Destroy(gameObject, 30f);
     }
 
     public void SetFinalPosition(Vector2 finalPosition, float speed)
@@ -26,6 +27,7 @@ public class Student : MonoBehaviour
 
     public void OnCapture()
     {
+        rigid.bodyType = RigidbodyType2D.Kinematic;
         rigid.linearVelocity = Vector2.zero;
     }
 
