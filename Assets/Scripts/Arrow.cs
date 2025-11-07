@@ -81,5 +81,12 @@ public class Arrow : MonoBehaviour
         }
     }
 
+    public void EquipWeapon(WeaponData weaponData)
+    {
+        baseSpeed = weaponData.velocity;
+        limit = weaponData.limit;
+        transform.localScale = new Vector3(weaponData.size, weaponData.size, 0f);
+    }
+
 
 }

@@ -15,7 +15,7 @@ public class Profecor : MonoBehaviour
     [SerializeField] GameObject fakeArrowOB;
     [SerializeField] LineRenderer fakeLine;
 
-    [SerializeField] int score;
+    public int score;
     
     bool isShooting = false;
     public Action onArrowEnd;
@@ -24,6 +24,7 @@ public class Profecor : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
 
     float charge;
+    float chargePower = 1f;
     Camera mainCamera;
 
     void Start()
@@ -37,6 +38,7 @@ public class Profecor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isShooting) rigid.linearVelocity = Vector2.zero;
         line.SetPosition(0, transform.position);
         line.SetPosition(1, arrowOB.transform.position);
 
@@ -66,11 +68,12 @@ public class Profecor : MonoBehaviour
         if(isInLab) return;
         if(Input.GetMouseButton(0))
         {
-            charge = Mathf.Min(charge + Time.deltaTime, 1f);
+            charge = Mathf.Min(charge + Time.deltaTime * chargePower, 1f);
         }
         if(Input.GetMouseButtonUp(0))
         {
             arrow.Shoot(charge);
+            rigid.linearVelocity = Vector2.zero;
             charge = 0f;
         }
     }
@@ -93,9 +96,15 @@ public class Profecor : MonoBehaviour
         UpdateScoreText();
     }
 
+    public void UseScore(int score)
+    {
+        this.score -= score;
+        UpdateScoreText();
+    }
+
     void UpdateScoreText()
     {
-        scoreText.text = "학생수 : " + score.ToString();
+        scoreText.text = "대학원생수 : " + score.ToString();
     }
 
     void SetInLab(bool isInLab)
@@ -105,11 +114,18 @@ public class Profecor : MonoBehaviour
         line.gameObject.SetActive(!isInLab);
         fakeArrowOB.SetActive(isInLab);
         fakeLine.gameObject.SetActive(isInLab);
-        
+
+    }
+
+    public void EquipWeapon(WeaponData weaponData)
+    {
+        chargePower = weaponData.charge;
+        arrow.EquipWeapon(weaponData);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if(isShooting) return;
         if(other.gameObject.CompareTag("Lab"))
         {
             SetInLab(true);
