@@ -10,7 +10,6 @@ public class Profecor : MonoBehaviour
     [SerializeField] GameObject arrowOB;
     Arrow arrow;
     Rigidbody2D rigid;
-    [SerializeField] LineRenderer line;
 
     [SerializeField] GameObject fakeArrowOB;
     [SerializeField] LineRenderer fakeLine;
@@ -44,8 +43,6 @@ public class Profecor : MonoBehaviour
     void Update()
     {
         if(isShooting) rigid.linearVelocity = Vector2.zero;
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, arrowOB.transform.position);
 
         if(!isShooting)
         {
@@ -113,7 +110,10 @@ public class Profecor : MonoBehaviour
         }
         else
         {
-            spriteRenderer.transform.DORotate(new Vector3(0, 0, -40f), 0.1f, RotateMode.Fast).SetRelative();
+            spriteRenderer.transform.DORotate(new Vector3(0, 0, -40f), 0.1f, RotateMode.Fast).SetRelative()
+            .OnComplete(() => {
+                spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 0);
+            });
         }
 
     }
@@ -139,7 +139,6 @@ public class Profecor : MonoBehaviour
     {
         this.isInLab = isInLab;
         arrowOB.SetActive(!isInLab);
-        line.gameObject.SetActive(!isInLab);
         fakeArrowOB.SetActive(isInLab);
         fakeLine.gameObject.SetActive(isInLab);
 

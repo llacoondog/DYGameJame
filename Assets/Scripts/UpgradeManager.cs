@@ -15,10 +15,25 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] Transform skillUpgradePanel;
     [SerializeField] GameObject skillUpgradeUIPrefab;
     public List<SkillData> skillUpgradeDatas;
+
+    
+    [SerializeField] Transform schoolUpgradePanel;
+    [SerializeField] GameObject schoolUpgradeUIPrefab;
+    public List<SchoolData> schoolUpgradeDatas;
+
+
     List<int> weaponHavingList = new List<int>();
     public List<int> skillHavingList = new List<int>();
+    List<int> schoolHavingList = new List<int>();
+    [SerializeField] SpriteRenderer platformSpriteRenderer;
+    [SerializeField] SpriteRenderer fieldSpriteRenderer;
+    
     int equippedWeaponIndex = 0;
-    [SerializeField] Button weaponUpgradeButton;
+    int equippedSchoolIndex = 0;
+
+
+
+
     SkillManager skillManager;
     void Awake()
     {
@@ -32,6 +47,7 @@ public class UpgradeManager : MonoBehaviour
         InitWeaponUpgradePanel();
         InitSkillUpgradePanel();
         skillManager = FindAnyObjectByType<SkillManager>();
+        InitSchoolUpgradePanel();
     }
 
     void InitWeaponUpgradePanel()
@@ -117,6 +133,68 @@ public class UpgradeManager : MonoBehaviour
             skillHavingList.Add(index);
             RefreshSkillButton(index);
             skillManager.SkillPurchased(index);
+        }
+    }
+
+    void InitSchoolUpgradePanel()
+    {
+        for(int i = 0; i < schoolUpgradeDatas.Count; i++)
+        {
+            Transform upgradeItem = Instantiate(schoolUpgradeUIPrefab, schoolUpgradePanel).transform;
+            SchoolData schoolData = schoolUpgradeDatas[i];
+            upgradeItem.Find("Icon").GetComponent<Image>().sprite = schoolData.icon;
+            upgradeItem.Find("Name").GetComponent<TextMeshProUGUI>().text = schoolData.name;
+            upgradeItem.Find("Description").GetComponent<TextMeshProUGUI>().text = schoolData.description;
+            int temp = i;
+            upgradeItem.Find("EquipButton").GetComponent<Button>().onClick.AddListener(() => EquipSchool(temp));
+            upgradeItem.Find("BuyButton").GetComponent<Button>().onClick.AddListener(() => BuySchool(temp));
+            RefreshSchoolButton(i);
+        }
+    }
+
+    void RefreshSchoolButton(int index)
+    {
+        Transform upgradeItem = schoolUpgradePanel.GetChild(index);
+        if(CheckSchoolHaving(index) == true)
+        {
+            upgradeItem.Find("BuyButton").gameObject.SetActive(false);
+            upgradeItem.Find("EquipButton").gameObject.SetActive(true);
+            upgradeItem.Find("EquipButton").Find("Price").GetComponent<TextMeshProUGUI>().text = (equippedSchoolIndex == index) ? "장착 중" : "장착";
+
+        }
+        else
+        {
+            upgradeItem.Find("BuyButton").gameObject.SetActive(true);
+            upgradeItem.Find("EquipButton").gameObject.SetActive(false);
+
+            upgradeItem.Find("BuyButton").Find("Price").GetComponent<TextMeshProUGUI>().text = schoolUpgradeDatas[index].price + "명";
+        }
+    }
+    bool CheckSchoolHaving(int index)
+    {
+        return schoolHavingList.Contains(index);
+    }
+    void BuySchool(int index)
+    {
+        if(CheckSchoolHaving(index) == true) return;
+        if(TryUpgrade(schoolUpgradeDatas[index].price))
+        {
+            schoolHavingList.Add(index);
+            RefreshSchoolButton(index);
+        }
+    }
+    void EquipSchool(int index)
+    {
+        if(equippedSchoolIndex == index) return;
+        if(CheckSchoolHaving(index) == true)
+        {
+            int prevIndex = equippedSchoolIndex;
+            equippedSchoolIndex = index;
+            StudentSpawner.Instance.SetSchool(schoolUpgradeDatas[index]);
+            platformSpriteRenderer.sprite = schoolUpgradeDatas[index].platformSprite;
+            fieldSpriteRenderer.sprite = schoolUpgradeDatas[index].fieldSprite;
+            RefreshSchoolButton(index);
+            RefreshSchoolButton(prevIndex);
         }
     }
     public bool TryUpgrade(int price)

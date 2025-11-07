@@ -55,4 +55,8 @@ public class StudentSpawner : MonoBehaviour
         yield return new WaitForSeconds(5f);
         spawnInterval *= 5f;
     }
+    public void SetSchool(SchoolData schoolData)
+    {
+        spawnInterval = schoolData.studentInterval;
+    }
 }

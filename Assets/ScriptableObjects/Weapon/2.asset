@@ -16,6 +16,7 @@ MonoBehaviour:
   name: "\uB2FB"
   description: 
   price: 1
+  chainSprite: {fileID: 21300000, guid: 6386ebf359677b844b23f99f3c344549, type: 3}
   velocity: 8
   limit: 3
   charge: 2

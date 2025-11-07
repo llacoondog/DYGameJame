@@ -9,7 +9,9 @@ public class Arrow : MonoBehaviour
     [SerializeField] float baseSpeed;
     [SerializeField] float speed;
     [SerializeField] int limit;
-    
+
+    [SerializeField] SpriteRenderer lineSprite;
+    SpriteRenderer spriteRenderer;
     [SerializeField] AudioClip hitSound;
 
     Profecor profecor;
@@ -24,6 +26,7 @@ public class Arrow : MonoBehaviour
         profecor = transform.parent.parent.GetComponent<Profecor>();
         profecor.onArrowEnd += OnArrowEnd;
         circleCollider = GetComponent<CircleCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         SetSpeed(0f);
     }
 
@@ -42,6 +45,7 @@ public class Arrow : MonoBehaviour
         for(distance = 0f; distance < reach; )
         {
             transform.localPosition += new Vector3(baseSpeed + baseSpeed * charge,0,0) * Time.deltaTime;
+            lineSprite.size = new Vector2(transform.localPosition.x, 1f);
             distance = transform.localPosition.x;
             yield return null;
         }
@@ -50,6 +54,7 @@ public class Arrow : MonoBehaviour
         for(distance = reach; distance > 0f; )
         {
             transform.localPosition -= new Vector3(speed,0,0) * Time.deltaTime;
+            lineSprite.size = new Vector2(transform.localPosition.x, 1f);
             distance = transform.localPosition.x;
             yield return null;
         }
@@ -73,7 +78,7 @@ public class Arrow : MonoBehaviour
     }
     void SetSpeed(float charge)
     {
-        this.speed = Mathf.Max(baseSpeed - (captureCount) + (baseSpeed * charge), 1f);
+        this.speed = Mathf.Max(baseSpeed - (captureCount) + (baseSpeed * charge), 2f);
     }
 
     void OnArrowEnd()
@@ -95,6 +100,8 @@ public class Arrow : MonoBehaviour
     {
         baseSpeed = weaponData.velocity;
         limit = weaponData.limit;
+        spriteRenderer.sprite = weaponData.icon;
+        lineSprite.sprite = weaponData.chainSprite;
         transform.localScale = new Vector3(weaponData.size, weaponData.size, 0f);
     }
 

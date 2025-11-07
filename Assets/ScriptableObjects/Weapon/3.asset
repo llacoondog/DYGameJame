@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ccfba2134ee0ea4aaece12c923bf1ad, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 44a054df1702e39458b7072b08d0f212, type: 3}
+  icon: {fileID: 21300000, guid: 71116a9fef013aa4d944e8f07fa0a271, type: 3}
   name: "\uBCBD"
   description: 
   price: 1
+  chainSprite: {fileID: 21300000, guid: 888925ac477bfd14d88b83a1489ca4cc, type: 3}
   velocity: 5
   limit: 5
   charge: 2
