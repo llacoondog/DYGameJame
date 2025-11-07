@@ -15,6 +15,7 @@ public class Profecor : MonoBehaviour
     [SerializeField] GameObject fakeArrowOB;
     [SerializeField] LineRenderer fakeLine;
     SkillManager skillManager;
+    SpriteRenderer spriteRenderer;
 
 
     public int score;
@@ -35,6 +36,7 @@ public class Profecor : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         skillManager = GetComponent<SkillManager>();
+        spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
     }
 
 
@@ -62,7 +64,7 @@ public class Profecor : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        fakeArrowOB.transform.localPosition = new Vector3(arrow.BaseReach + arrow.BaseReach * charge ,0f,0f);
+        fakeArrowOB.transform.localPosition = new Vector3(arrow.BaseReach * charge + 0.5f,0f,0f);
         fakeLine.SetPosition(0, transform.position);
         fakeLine.SetPosition(1, fakeArrowOB.transform.position);
     }
@@ -90,6 +92,14 @@ public class Profecor : MonoBehaviour
         {
             skillManager.UseSkill_bait();
         }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            skillManager.UseSkill_confuse();
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            skillManager.UseSkill_faster();
+        }
     }
 
     public void SetShooting(bool isShooting)
@@ -97,6 +107,15 @@ public class Profecor : MonoBehaviour
         this.isShooting = isShooting;
         fakeArrowOB.SetActive(!isShooting);
         fakeLine.gameObject.SetActive(!isShooting);
+        if(isShooting)
+        {
+            spriteRenderer.transform.DORotate(new Vector3(0, 0, 40f), 0.1f, RotateMode.Fast).SetRelative();
+        }
+        else
+        {
+            spriteRenderer.transform.DORotate(new Vector3(0, 0, -40f), 0.1f, RotateMode.Fast).SetRelative();
+        }
+
     }
 
     public void AddScore(int score)

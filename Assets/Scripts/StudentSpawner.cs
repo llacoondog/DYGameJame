@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StudentSpawner : MonoBehaviour
 {
+    public static StudentSpawner Instance;
     [SerializeField] GameObject studentPrefab;
 
     [SerializeField] float spawnInterval;
@@ -12,6 +13,12 @@ public class StudentSpawner : MonoBehaviour
     [SerializeField] List<Sprite> accs;
     [SerializeField] List<Sprite> clothes;
     [SerializeField] List<Sprite> skins;
+
+    void Awake()
+    {
+        if(Instance != null) Destroy(this.gameObject);
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -36,5 +43,16 @@ public class StudentSpawner : MonoBehaviour
 
         yield return new WaitForSeconds(spawnInterval);
         StartCoroutine(SpawnStudent());
+    }
+
+    public void MakeFaster()
+    {
+        StartCoroutine(MakeFasterCoroutine());
+    }
+    IEnumerator MakeFasterCoroutine()
+    {
+        spawnInterval /= 5f;
+        yield return new WaitForSeconds(5f);
+        spawnInterval *= 5f;
     }
 }

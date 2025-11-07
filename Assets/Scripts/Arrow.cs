@@ -9,6 +9,8 @@ public class Arrow : MonoBehaviour
     [SerializeField] float baseSpeed;
     [SerializeField] float speed;
     [SerializeField] int limit;
+    
+    [SerializeField] AudioClip hitSound;
 
     Profecor profecor;
     int captureCount;
@@ -34,7 +36,7 @@ public class Arrow : MonoBehaviour
         this.charge = charge;
         circleCollider.enabled = true;
         profecor.SetShooting(true);
-        reach = baseReach + baseReach * charge;
+        reach = baseReach * charge+0.5f;
         // 앞으로 간다
         float distance = 0;
         for(distance = 0f; distance < reach; )
@@ -66,11 +68,12 @@ public class Arrow : MonoBehaviour
             other.transform.SetParent(transform);
             captureCount++;
             SetSpeed(this.charge);
+            SoundManager.Instance.PlaySound(hitSound);
         }
     }
     void SetSpeed(float charge)
     {
-        this.speed = Mathf.Max(baseSpeed - (captureCount * 2f) + (baseSpeed * charge), 1f);
+        this.speed = Mathf.Max(baseSpeed - (captureCount) + (baseSpeed * charge), 1f);
     }
 
     void OnArrowEnd()
@@ -78,7 +81,8 @@ public class Arrow : MonoBehaviour
         profecor.AddScore(captureCount);
         captureCount = 0;
         SetSpeed(0f);
-        
+        transform.localPosition = Vector2.zero;
+
         for(int i = transform.childCount; i  > 0; i--)
         {
             transform.GetChild(i-1).GetComponent<Student>().MoveToLab();

@@ -36,6 +36,7 @@ public class Student : MonoBehaviour
 
     public void OnCapture()
     {
+        transform.DOKill();
         circleCollider.enabled = false;
         rigid.bodyType = RigidbodyType2D.Kinematic;
         rigid.linearVelocity = Vector2.zero;
@@ -61,6 +62,21 @@ public class Student : MonoBehaviour
         Destroy(gameObject, 10f);
     }
 
+    public void Confuse()
+    {
+        StartCoroutine(ConfuseCoroutine());
+    }
+    IEnumerator ConfuseCoroutine()
+    {
+        StopAllCoroutines();
+        transform.DOKill();
+        transform.DOShakePosition(2f, 0.1f, 15, 90f, false).SetRelative();
+        transform.DOShakeRotation(2f, 300f, 15, 90f, false).SetRelative();
+        yield return new WaitForSeconds(2f);
+        transform.DOKill();
+        StartCoroutine(Move());
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Bait"))
@@ -78,6 +94,7 @@ public class Student : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D other)
     {
+        if(circleCollider.enabled == false) return;
         if(other.gameObject.CompareTag("Bait"))
         {
             StartCoroutine(Move());

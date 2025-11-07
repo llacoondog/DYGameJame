@@ -19,6 +19,7 @@ public class UpgradeManager : MonoBehaviour
     public List<int> skillHavingList = new List<int>();
     int equippedWeaponIndex = 0;
     [SerializeField] Button weaponUpgradeButton;
+    SkillManager skillManager;
     void Awake()
     {
         if(Instance != null) Destroy(this.gameObject);
@@ -30,6 +31,7 @@ public class UpgradeManager : MonoBehaviour
         weaponHavingList.Add(0);
         InitWeaponUpgradePanel();
         InitSkillUpgradePanel();
+        skillManager = FindAnyObjectByType<SkillManager>();
     }
 
     void InitWeaponUpgradePanel()
@@ -114,6 +116,7 @@ public class UpgradeManager : MonoBehaviour
         {
             skillHavingList.Add(index);
             RefreshSkillButton(index);
+            skillManager.SkillPurchased(index);
         }
     }
     public bool TryUpgrade(int price)
