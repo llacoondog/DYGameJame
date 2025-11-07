@@ -28,8 +28,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] SpriteRenderer platformSpriteRenderer;
     [SerializeField] SpriteRenderer fieldSpriteRenderer;
     
-    int equippedWeaponIndex = 0;
-    int equippedSchoolIndex = 0;
+    int equippedWeaponIndex = -1;
+    int equippedSchoolIndex = -1;
 
 
 
@@ -44,10 +44,13 @@ public class UpgradeManager : MonoBehaviour
     void Start()
     {
         weaponHavingList.Add(0);
+        schoolHavingList.Add(0);
         InitWeaponUpgradePanel();
         InitSkillUpgradePanel();
         skillManager = FindAnyObjectByType<SkillManager>();
         InitSchoolUpgradePanel();
+        EquipWeapon(0);
+        EquipSchool(0);
     }
 
     void InitWeaponUpgradePanel()
@@ -194,7 +197,11 @@ public class UpgradeManager : MonoBehaviour
             platformSpriteRenderer.sprite = schoolUpgradeDatas[index].platformSprite;
             fieldSpriteRenderer.sprite = schoolUpgradeDatas[index].fieldSprite;
             RefreshSchoolButton(index);
-            RefreshSchoolButton(prevIndex);
+
+            if(prevIndex != -1)
+            {
+                RefreshSchoolButton(prevIndex);
+            }
         }
     }
     public bool TryUpgrade(int price)
@@ -213,7 +220,10 @@ public class UpgradeManager : MonoBehaviour
             equippedWeaponIndex = index;
             profecor.EquipWeapon(weaponUpgradeDatas[index]);
             RefreshWeaponButton(index);
-            RefreshWeaponButton(prevIndex);
+            if(prevIndex != -1)
+            {
+                RefreshWeaponButton(prevIndex);
+            }
         }
     }
 

@@ -8,4 +8,5 @@ public class WeaponData : UpgradeData
     public int limit;
     public float charge;
     public float size;
+    public AudioClip shootSound;
 }

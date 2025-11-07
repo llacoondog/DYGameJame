@@ -8,7 +8,7 @@ using DG.Tweening;
 public class Profecor : MonoBehaviour
 {
     [SerializeField] GameObject arrowOB;
-    Arrow arrow;
+    [SerializeField] Arrow arrow;
     Rigidbody2D rigid;
 
     [SerializeField] GameObject fakeArrowOB;
@@ -31,7 +31,6 @@ public class Profecor : MonoBehaviour
 
     void Start()
     {
-        arrow = arrowOB.GetComponent<Arrow>();
         rigid = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         skillManager = GetComponent<SkillManager>();
@@ -56,13 +55,13 @@ public class Profecor : MonoBehaviour
     {
         if(isInLab) return;
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(mousePosition);
+        mousePosition = (Vector2)(Camera.main.ScreenToWorldPoint(mousePosition) + fakeArrowOB.transform.parent.localPosition);
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
         fakeArrowOB.transform.localPosition = new Vector3(arrow.BaseReach * charge + 0.5f,0f,0f);
-        fakeLine.SetPosition(0, transform.position);
+        fakeLine.SetPosition(0, fakeArrowOB.transform.parent.position);
         fakeLine.SetPosition(1, fakeArrowOB.transform.position);
     }
     void MouseInputAction()

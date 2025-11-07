@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    [SerializeField] WeaponData weaponData;
 
     [SerializeField] float baseReach;
     [SerializeField] float reach;
@@ -11,7 +12,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] int limit;
 
     [SerializeField] SpriteRenderer lineSprite;
-    SpriteRenderer spriteRenderer;
+     SpriteRenderer spriteRenderer;
     [SerializeField] AudioClip hitSound;
 
     Profecor profecor;
@@ -39,6 +40,10 @@ public class Arrow : MonoBehaviour
         this.charge = charge;
         circleCollider.enabled = true;
         profecor.SetShooting(true);
+        if(weaponData?.shootSound != null)
+        {
+            SoundManager.Instance.PlaySound(weaponData.shootSound);
+        }
         reach = baseReach * charge+0.5f;
         // 앞으로 간다
         float distance = 0;
@@ -98,8 +103,13 @@ public class Arrow : MonoBehaviour
 
     public void EquipWeapon(WeaponData weaponData)
     {
+        this.weaponData = weaponData;
         baseSpeed = weaponData.velocity;
         limit = weaponData.limit;
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
         spriteRenderer.sprite = weaponData.icon;
         lineSprite.sprite = weaponData.chainSprite;
         transform.localScale = new Vector3(weaponData.size, weaponData.size, 0f);
