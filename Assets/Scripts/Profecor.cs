@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Profecor : MonoBehaviour
 {
@@ -9,8 +12,13 @@ public class Profecor : MonoBehaviour
 
     [SerializeField] GameObject arrow;
     [SerializeField] LineRenderer line;
+
+    [SerializeField] int score;
     
     Coroutine shootCoroutine;
+    public Action onArrowEnd;
+
+    [SerializeField] TextMeshProUGUI scoreText;
 
     void Start()
     {
@@ -50,13 +58,24 @@ public class Profecor : MonoBehaviour
             yield return null;
         }
 
-
         // 1초 동안 뒤로 간다
         for(time = 0f; time < 1f; time += Time.deltaTime)
         {
             arrow.transform.localPosition -= new Vector3(speed,0,0) * Time.deltaTime;
             yield return null;
         }
+        onArrowEnd?.Invoke();
         shootCoroutine = null;
+    }
+
+    public void AddScore(int score)
+    {
+        this.score += score;
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "학생수 : " + score.ToString();
     }
 }
