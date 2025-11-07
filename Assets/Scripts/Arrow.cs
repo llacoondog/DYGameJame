@@ -50,7 +50,8 @@ public class Arrow : MonoBehaviour
         for(distance = 0f; distance < reach; )
         {
             transform.localPosition += new Vector3(baseSpeed + baseSpeed * charge,0,0) * Time.deltaTime;
-            lineSprite.size = new Vector2(transform.localPosition.x, 1f);
+            if(weaponData.isChaining)
+                lineSprite.size = new Vector2(transform.localPosition.x, 1f);
             distance = transform.localPosition.x;
             yield return null;
         }
@@ -59,10 +60,13 @@ public class Arrow : MonoBehaviour
         for(distance = reach; distance > 0f; )
         {
             transform.localPosition -= new Vector3(speed,0,0) * Time.deltaTime;
-            lineSprite.size = new Vector2(transform.localPosition.x, 1f);
+            if(weaponData.isChaining)
+                lineSprite.size = new Vector2(transform.localPosition.x, 1f);
             distance = transform.localPosition.x;
             yield return null;
         }
+        if(weaponData.isChaining)
+            lineSprite.size = new Vector2(0f, 1f);
         OnArrowEnd();
         profecor.SetShooting(false);
         circleCollider.enabled = false;

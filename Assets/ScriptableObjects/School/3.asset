@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 20bccf703b5041848a759049d765295f, type: 3}
   name: "\uB300\uB9AC\uC11D"
-  description: "\uBC18\uC9DD\uBC18\uC9DD. \uCD08\uB2F9 \uD559\uC0DD \uC218 9\uBA85"
+  description: "\uBC18\uC9DD\uBC18\uC9DD. \uCD08\uB2F9 \uD559\uC0DD \uC218 6\uBA85"
   price: 1
-  studentInterval: 0.11
+  studentInterval: 0.125
   platformSprite: {fileID: 21300000, guid: b1f9577e909c6024691a7141aae090d2, type: 3}
   fieldSprite: {fileID: 21300000, guid: 27d57cf8b38d4ef4696872da9331fcaa, type: 3}

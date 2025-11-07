@@ -184,6 +184,7 @@ public class UpgradeManager : MonoBehaviour
         {
             schoolHavingList.Add(index);
             RefreshSchoolButton(index);
+            EquipSchool(index);
         }
     }
     void EquipSchool(int index)
@@ -233,6 +234,7 @@ public class UpgradeManager : MonoBehaviour
         {
             weaponHavingList.Add(index);
             RefreshWeaponButton(index);
+            EquipWeapon(index);
         }
     }
 }

@@ -18,7 +18,8 @@ MonoBehaviour:
   price: 1
   chainSprite: {fileID: 0}
   velocity: 6
-  limit: 999
-  charge: 0.33
+  limit: 99
+  charge: 0.67
   size: 4
-  shootSound: {fileID: 0}
+  isChaining: 0
+  shootSound: {fileID: 8300000, guid: eb492bf9b8fbbfa408410387c498651a, type: 3}

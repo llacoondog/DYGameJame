@@ -8,5 +8,7 @@ public class WeaponData : UpgradeData
     public int limit;
     public float charge;
     public float size;
+
+    public bool isChaining;
     public AudioClip shootSound;
 }

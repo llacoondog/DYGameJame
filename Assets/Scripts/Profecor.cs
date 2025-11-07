@@ -138,8 +138,8 @@ public class Profecor : MonoBehaviour
     {
         this.isInLab = isInLab;
         arrowOB.SetActive(!isInLab);
-        fakeArrowOB.SetActive(isInLab);
-        fakeLine.gameObject.SetActive(isInLab);
+        fakeArrowOB.SetActive(!isInLab);
+        fakeLine.gameObject.SetActive(!isInLab);
 
     }
 

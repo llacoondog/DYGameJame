@@ -41,7 +41,7 @@ public class Student : MonoBehaviour
         rigid.bodyType = RigidbodyType2D.Kinematic;
         rigid.linearVelocity = Vector2.zero;
         transform.DORotate(new Vector3(0, 0, -90f), 0.2f, RotateMode.Fast).OnComplete(() => {
-            transform.DOShakeRotation(0.15f, 300f, 15, 90f, false).SetRelative().SetLoops(-1);
+            transform.DOShakeRotation(0.15f, 300f, 15, 90f, false ).SetLoops(-1);
         });
     }
 
@@ -57,7 +57,11 @@ public class Student : MonoBehaviour
     {
         StopAllCoroutines();
         transform.DOKill();
-        transform.DORotate(new Vector3(0, 0, 90f), 0.2f, RotateMode.Fast);
+        transform.DORotate(new Vector3(0, 0, 90f), 0.2f, RotateMode.Fast).OnComplete(()=>
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 90f);
+            transform.localScale = new Vector3(1f, 1f, 1f);
+            });
         rigid.linearVelocity = Vector2.left * 2f;
         Destroy(gameObject, 10f);
     }
@@ -71,7 +75,7 @@ public class Student : MonoBehaviour
         StopAllCoroutines();
         transform.DOKill();
         transform.DOShakePosition(2f, 0.1f, 15, 90f, false).SetRelative();
-        transform.DOShakeRotation(2f, 300f, 15, 90f, false).SetRelative();
+        transform.DOShakeRotation(2f, 300f, 15, 90f, false);
         yield return new WaitForSeconds(2f);
         transform.DOKill();
         StartCoroutine(Move());
