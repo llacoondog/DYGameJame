@@ -16,6 +16,6 @@ MonoBehaviour:
   name: "\uAE30\uB9D0\uACE0\uC0AC"
   description: "\uD559\uC0DD\uB4E4\uC758 \uB4F1\uAD50 \uC218\uB97C 5\uBC30\uB85C
     \uB9CC\uB4E0\uB2E4."
-  price: 1
+  price: 80
   duration: 5
   cooldown: 20

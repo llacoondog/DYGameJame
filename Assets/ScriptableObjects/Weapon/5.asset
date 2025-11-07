@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 71116a9fef013aa4d944e8f07fa0a271, type: 3}
   name: "\uAD11\uC120\uAC80"
   description: 
-  price: 1
+  price: 100
   chainSprite: {fileID: 21300000, guid: 888925ac477bfd14d88b83a1489ca4cc, type: 3}
   velocity: 99
   limit: 15

@@ -16,6 +16,6 @@ MonoBehaviour:
   name: "\uC871\uBCF4 \uBBF8\uB07C"
   description: "\uB9C8\uC6B0\uC2A4 \uC704\uCE58\uC5D0 \uC871\uBCF4\uB97C \uB358\uC9C4\uB2E4.
     \uD559\uC0DD\uB4E4\uC740 \uC871\uBCF4\uB97C \uCC38\uC9C0 \uBABB\uD558\uACE0 \uB2EC\uB824\uC62C\uAC83\uC774\uB2E4."
-  price: 1
+  price: 20
   duration: 5
   cooldown: 20

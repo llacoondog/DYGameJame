@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4c23fcf741391734593d402287e1d1a1, type: 3}
   name: "\uB2FB"
   description: 
-  price: 1
+  price: 40
   chainSprite: {fileID: 21300000, guid: 6386ebf359677b844b23f99f3c344549, type: 3}
   velocity: 8
   limit: 6

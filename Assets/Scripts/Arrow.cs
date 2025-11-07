@@ -4,6 +4,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     [SerializeField] WeaponData weaponData;
+    public WeaponData WeaponData => weaponData;
 
     [SerializeField] float baseReach;
     [SerializeField] float reach;
@@ -19,6 +20,10 @@ public class Arrow : MonoBehaviour
     int captureCount;
     public int CaptureCount => captureCount;
     public float BaseReach => baseReach;
+    public float Charge => charge;
+    public float BaseSpeed => baseSpeed;
+    public int Limit => limit;
+    public float Speed => speed;
     float charge;
     CircleCollider2D circleCollider;
 

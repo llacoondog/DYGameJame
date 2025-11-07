@@ -22,6 +22,7 @@ public class Profecor : MonoBehaviour
     bool isShooting = false;
     public Action onArrowEnd;
     bool isInLab = false;
+    public bool IsInLab => isInLab;
 
     [SerializeField] TextMeshProUGUI scoreText;
 
@@ -81,7 +82,7 @@ public class Profecor : MonoBehaviour
 
     void KeyboardInputAction()
     {
-        rigid.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * 3f, Input.GetAxis("Vertical") * 3f);
+        rigid.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * 5f, Input.GetAxis("Vertical") * 5f);
 
         if(isInLab) return; 
         if(Input.GetKeyDown(KeyCode.Q))

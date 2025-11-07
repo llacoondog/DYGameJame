@@ -5,6 +5,7 @@ using UnityEngine;
 public class StudentSpawner : MonoBehaviour
 {
     public static StudentSpawner Instance;
+    public float SpawnInterval => spawnInterval;
     [SerializeField] GameObject studentPrefab;
 
     [SerializeField] float spawnInterval;

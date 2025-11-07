@@ -15,10 +15,10 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 437f292859ac8fc408d18635fde01298, type: 3}
   name: "\uADF8\uBB3C\uCD1D"
   description: 
-  price: 1
-  chainSprite: {fileID: 0}
+  price: 15
+  chainSprite: {fileID: 21300000, guid: 46b01da4a859d244d95117cce3d4c5df, type: 3}
   velocity: 10
-  limit: 2
+  limit: 3
   charge: 1
   size: 1.5
   isChaining: 0
