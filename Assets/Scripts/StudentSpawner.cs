@@ -28,7 +28,7 @@ public class StudentSpawner : MonoBehaviour
 
     IEnumerator SpawnStudent()
     {
-        float x = Random.Range(-3f, 10f);
+        float x = Random.Range(-3f, 9f);
         float y = (Random.value > 0.5f) ? -6f : 6f;
         float speed = Random.Range(3f, 7f);
         GameObject studentOB = Instantiate(studentPrefab, new Vector2(x, y), Quaternion.identity);

@@ -104,5 +104,9 @@ public class Student : MonoBehaviour
             StartCoroutine(Move());
         }
     }
+    void OnDestroy()
+    {
+        transform.DOKill();
+    }
 
 }

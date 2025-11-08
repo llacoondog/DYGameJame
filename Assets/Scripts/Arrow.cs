@@ -15,6 +15,8 @@ public class Arrow : MonoBehaviour
     [SerializeField] SpriteRenderer lineSprite;
      SpriteRenderer spriteRenderer;
     [SerializeField] AudioClip hitSound;
+    [SerializeField] GameObject chacramArrowPrefab;
+    [SerializeField] GameObject lightsaberPrefab;
 
     Profecor profecor;
     int captureCount;
@@ -50,9 +52,43 @@ public class Arrow : MonoBehaviour
             SoundManager.Instance.PlaySound(weaponData.shootSound);
         }
         reach = baseReach * charge+0.5f;
+        if(weaponData.name == "차크람" && chacramArrowPrefab != null)
+        {
+            // 위쪽 추가 투사체 생성 (30도)
+            GameObject upperArrow = Instantiate(chacramArrowPrefab, transform.position, transform.rotation * Quaternion.Euler(0, 0, 30f), transform.parent);
+            ChacramArrow upperArrowComponent = upperArrow.GetComponentInChildren<ChacramArrow>();
+            if(upperArrowComponent != null)
+            {
+                upperArrowComponent.Initialize(weaponData, baseReach, baseSpeed, limit, hitSound);
+                upperArrowComponent.Shoot(charge);
+            }
+            
+            // 아래쪽 추가 투사체 생성 (-30도)
+            GameObject lowerArrow = Instantiate(chacramArrowPrefab, transform.position, transform.rotation * Quaternion.Euler(0, 0, -30f), transform.parent);
+            ChacramArrow lowerArrowComponent = lowerArrow.GetComponentInChildren<ChacramArrow>();
+            if(lowerArrowComponent != null)
+            {
+                lowerArrowComponent.Initialize(weaponData, baseReach, baseSpeed, limit, hitSound);
+                lowerArrowComponent.Shoot(charge);
+            }
+        }
+        if(weaponData.name == "광선검" && lightsaberPrefab != null)
+        {
+            GameObject lightsaber = Instantiate(lightsaberPrefab, transform.position, transform.rotation, transform.parent);
+            LightSaberArrow lightSaberArrowComponent = lightsaber.GetComponentInChildren<LightSaberArrow>();
+            if(lightSaberArrowComponent != null)
+            {
+                lightSaberArrowComponent.Initialize(limit, baseSpeed, charge, hitSound);
+            }
+            yield return new WaitForSeconds(0.9f);
+            OnArrowEnd();
+            profecor.SetShooting(false);
+            circleCollider.enabled = false;
+            yield break;
+        }
         // 앞으로 간다
         float distance = 0;
-        for(distance = 0f; distance < reach; )
+        for(distance = 0f; distance < reach && captureCount < limit; )
         {
             transform.localPosition += new Vector3(baseSpeed + baseSpeed * charge,0,0) * Time.deltaTime;
             if(weaponData.isChaining)

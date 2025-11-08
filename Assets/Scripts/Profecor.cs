@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,11 +19,12 @@ public class Profecor : MonoBehaviour
     public int score;
     
     bool isShooting = false;
-    public Action onArrowEnd;
+    public System.Action onArrowEnd;
     bool isInLab = false;
     public bool IsInLab => isInLab;
 
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshPro upTextPrefab;
 
     float charge;
     float chargePower = 1f;
@@ -120,7 +120,14 @@ public class Profecor : MonoBehaviour
 
     public void AddScore(int score)
     {
+        if(score == 0) return;
         this.score += score;
+        TextMeshPro upText = Instantiate(upTextPrefab.gameObject, upTextPrefab.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0f), Quaternion.identity).GetComponent<TextMeshPro>();
+        upText.text = "+" + score.ToString();
+        upText.transform.DOMoveY(upText.transform.position.y + 0.2f, 0.5f);
+        upText.transform.DOScale(0.5f, 0.5f).SetEase(Ease.OutBack).OnComplete(() => {
+            Destroy(upText.gameObject);
+        });
         UpdateScoreText();
     }
 
