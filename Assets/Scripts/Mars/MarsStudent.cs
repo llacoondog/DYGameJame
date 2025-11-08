@@ -15,6 +15,7 @@ public class MarsStudent : MonoBehaviour
         transform.DOKill();
         circleCollider = GetComponent<CircleCollider2D>();
         circleCollider.enabled = false;
+        transform.SetParent(null);
         gameObject.tag = "Alien";
         rigid = GetComponent<Rigidbody2D>();
         // rigid.bodyType = RigidbodyType2D.Kinematic;
@@ -22,7 +23,7 @@ public class MarsStudent : MonoBehaviour
         transform.DORotate(new Vector3(0, 0, -90f), 0.2f, RotateMode.Fast).OnComplete(() => {
             transform.DOShakeRotation(0.15f, 300f, 15, 90f, false ).SetLoops(-1);
         });
-        moveDirection = (Vector2)(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+        moveDirection = FindAnyObjectByType<Boss>().transform.position - transform.position;
         MoveToBoss(moveDirection);
     }
 

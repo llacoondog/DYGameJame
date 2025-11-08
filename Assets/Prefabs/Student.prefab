@@ -170,6 +170,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  screamSounds:
+  - {fileID: 8300000, guid: fa2cf9ad55ca2ae45a3134b677cf9a24, type: 3}
+  - {fileID: 8300000, guid: 41191feef174ead4d949d53e41f1e0c8, type: 3}
+  - {fileID: 8300000, guid: c9058f1333365464ab41ecb6b5a3a017, type: 3}
 --- !u!1 &3810376801599576718
 GameObject:
   m_ObjectHideFlags: 0

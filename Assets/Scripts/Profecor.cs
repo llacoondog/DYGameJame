@@ -172,7 +172,7 @@ public class Profecor : MonoBehaviour
         if(other.gameObject.CompareTag("Lab"))
         {
             SetInLab(false);
-            mainCamera.transform.DOMoveX(0f, 0.5f);
+            mainCamera?.transform.DOMoveX(0f, 0.5f);
         }
     }
 }

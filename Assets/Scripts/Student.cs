@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Student : MonoBehaviour
     [SerializeField] float speed;
     Rigidbody2D rigid;
     CircleCollider2D circleCollider;
+    [SerializeField] List<AudioClip> screamSounds = new List<AudioClip>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +45,10 @@ public class Student : MonoBehaviour
         transform.DORotate(new Vector3(0, 0, -90f), 0.2f, RotateMode.Fast).OnComplete(() => {
             transform.DOShakeRotation(0.15f, 300f, 15, 90f, false ).SetLoops(-1);
         });
+        if(Random.value < 0.1f)
+        {
+            SoundManager.Instance.PlaySound(screamSounds[Random.Range(0, screamSounds.Count)]);
+        }
     }
 
     IEnumerator Move()

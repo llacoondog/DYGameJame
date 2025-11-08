@@ -24,6 +24,7 @@ public class MarsPlayer : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshPro upTextPrefab;
     [SerializeField] WeaponData firstWeapon;
+    [SerializeField] AudioClip hitSound;
 
     float charge;
     float chargePower = 1f;
@@ -146,6 +147,7 @@ public class MarsPlayer : MonoBehaviour
         if(other.tag == "Student" || other.tag=="Danger")
         {
             hp -= 5;
+            SoundManager.Instance.PlaySound(hitSound);
             Destroy(other.gameObject);
             hpBar.DOFillAmount((float)hp / 100f, 0.5f);
             if(hp <= 0)

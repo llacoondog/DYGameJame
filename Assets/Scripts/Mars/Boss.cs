@@ -12,6 +12,8 @@ public class Boss : MonoBehaviour
     [SerializeField] GameObject dangerAlienPrefab;
     [SerializeField] GameObject rollingPrefab;
     [SerializeField] Image hpBar;
+    [SerializeField] AudioClip bossHitSound;
+    [SerializeField] AudioClip bossShootSound;
     void Start()
     {
         StartCoroutine(PlayRandomAttack());
@@ -57,6 +59,7 @@ public class Boss : MonoBehaviour
             for(int j = 0; j < 3 ; j++)
             {
                 Shoot(transform.position,Vector2.left*10f);
+                SoundManager.Instance.PlaySound(bossShootSound);
                 yield return new WaitForSeconds(0.2f);
             }
         }
@@ -83,6 +86,7 @@ public class Boss : MonoBehaviour
                 ShootParriable(transform.position, Vector2.left * 10f);
             else
                 Shoot(transform.position, Vector2.left * 10f);
+            SoundManager.Instance.PlaySound(bossShootSound);
             yield return new WaitForSeconds(shootInterval);
         }
         
@@ -109,6 +113,7 @@ public class Boss : MonoBehaviour
         transform.DOMoveY(randY, 1f);
         yield return new WaitForSeconds(1f);
         
+                SoundManager.Instance.PlaySound(bossShootSound);
         // 4공격: 왼쪽을 기준으로 -30, -6, 6, 30도 각도로 발사
         float[] angles4 = new float[] { -30f, -10f, 10f, 30f };
         foreach(float angle in angles4)
@@ -120,6 +125,7 @@ public class Boss : MonoBehaviour
         
         yield return new WaitForSeconds(0.5f);
         
+                SoundManager.Instance.PlaySound(bossShootSound);
         // 3공격: 왼쪽을 기준으로 -20, 0, 20도 각도로 발사
         float[] angles3 = new float[] { -20f, 0f, 20f };
         foreach(float angle in angles3)
@@ -130,6 +136,7 @@ public class Boss : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
         
+                SoundManager.Instance.PlaySound(bossShootSound);
         // 4공격: 왼쪽을 기준으로 -30, -6, 6, 30도 각도로 발사
         foreach(float angle in angles4)
         {
@@ -148,6 +155,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(1f);
         for(int i = 0; i < 3; i++)
         {
+                SoundManager.Instance.PlaySound(bossShootSound);
             GameObject rolling = Instantiate(rollingPrefab, transform.position, Quaternion.identity);
             rolling.transform.eulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
             rolling.transform.DOMoveX(rolling.transform.position.x - 30f, 5f).SetEase(Ease.Linear);
@@ -162,11 +170,15 @@ public class Boss : MonoBehaviour
     {
         transform.DOMoveY(4f,1f);
         yield return new WaitForSeconds(1f);
+                SoundManager.Instance.PlaySound(bossShootSound);
         transform.DOShakePosition(0.5f, Vector3.up * 0.1f, 15, 90f, false).SetRelative();
         yield return new WaitForSeconds(0.5f);
         for(int i = 0; i < 40; i++)
         {
             Shoot(new Vector2(Random.Range(-10f, 10f), 7f), Vector2.down * 10f + Vector2.right * Random.Range(-1, 0f));
+            if(i%4 == 0)
+                SoundManager.Instance.PlaySound(bossShootSound);
+
             yield return new WaitForSeconds(0.12f);
             // Destroy(alien,10f);
         }
@@ -198,6 +210,7 @@ public class Boss : MonoBehaviour
         if(other.CompareTag("Alien"))
         {
             hp -= 5;
+            SoundManager.Instance.PlaySound(bossHitSound);
             Destroy(other.gameObject);
             hpBar.DOFillAmount((float)hp / 100f, 0.5f);
             if(hp <= 0)

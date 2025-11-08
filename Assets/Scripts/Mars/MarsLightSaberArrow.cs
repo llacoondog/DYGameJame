@@ -63,8 +63,8 @@ public class MarsLightSaberArrow : MonoBehaviour
         if (other.gameObject.CompareTag("Student"))
         {
             other.GetComponent<MarsStudent>().OnCapture();
-            other.transform.SetParent(transform);
-            _captureCount++;
+            // other.transform.SetParent(transform);
+            // _captureCount++;
             SetSpeed(_charge);
             if (_hitSound != null)
             {
