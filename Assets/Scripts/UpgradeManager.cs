@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour
@@ -21,6 +22,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] GameObject schoolUpgradeUIPrefab;
     public List<SchoolData> schoolUpgradeDatas;
 
+    [SerializeField] GameObject marsPanel;
+
 
     List<int> weaponHavingList = new List<int>();
     public List<int> skillHavingList = new List<int>();
@@ -39,6 +42,7 @@ public class UpgradeManager : MonoBehaviour
     {
         if(Instance != null) Destroy(this.gameObject);
         Instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
@@ -74,6 +78,13 @@ public class UpgradeManager : MonoBehaviour
 
     void RefreshWeaponButton(int index)
     {
+        if(CheckWeaponHaving(5) == true && CheckSchoolHaving(2) == true)
+        {
+            marsPanel.SetActive(true);
+            schoolUpgradePanel.gameObject.SetActive(false);
+            weaponUpgradePanel.gameObject.SetActive(false);
+            return;
+        }
         Transform upgradeItem = weaponUpgradePanel.GetChild(index);
         if(CheckWeaponHaving(index) == true)
         {
@@ -157,6 +168,12 @@ public class UpgradeManager : MonoBehaviour
 
     void RefreshSchoolButton(int index)
     {
+        if(CheckWeaponHaving(5) == true && CheckSchoolHaving(2) == true)
+        {
+            marsPanel.SetActive(true);
+            schoolUpgradePanel.gameObject.SetActive(false);
+            return;
+        }
         Transform upgradeItem = schoolUpgradePanel.GetChild(index);
         if(CheckSchoolHaving(index) == true)
         {
@@ -172,6 +189,7 @@ public class UpgradeManager : MonoBehaviour
 
             upgradeItem.Find("BuyButton").Find("Price").GetComponent<TextMeshProUGUI>().text = schoolUpgradeDatas[index].price + "명";
         }
+
     }
     bool CheckSchoolHaving(int index)
     {
@@ -236,5 +254,10 @@ public class UpgradeManager : MonoBehaviour
             RefreshWeaponButton(index);
             EquipWeapon(index);
         }
+    }
+
+    public void GoMars()
+    {
+        SceneManager.LoadScene("Mars");
     }
 }

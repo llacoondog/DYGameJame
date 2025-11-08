@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 686eb64ce90110341a9e0470d9b4eed9, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 20bccf703b5041848a759049d765295f, type: 3}
+  icon: {fileID: 21300000, guid: b2cc10899f62fdc4c93ed46464867921, type: 3}
   name: "\uB0A1\uC740 \uD559\uAD50"
-  description: "\uD759\uD22C\uC131\uC774\uC758 \uB0A1\uC740 \uD559\uAD50\uB2E4. \uCD08\uB2F9
+  description: "\uD759\uD22C\uC131\uC774 \uB0A1\uC740 \uD559\uAD50\uB2E4. \\n\uCD08\uB2F9
     \uD559\uC0DD  3\uBA85"
   price: 1
   studentInterval: 0.333

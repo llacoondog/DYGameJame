@@ -61,6 +61,7 @@ public class Student : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 0, 90f);
             transform.localScale = new Vector3(1f, 1f, 1f);
+            transform.DOShakeScale(0.1f, Vector3.right * 0.2f, 20, 90f, false).SetRelative().SetLoops(-1);
             });
         rigid.linearVelocity = Vector2.left * 2f;
         Destroy(gameObject, 10f);

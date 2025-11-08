@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 686eb64ce90110341a9e0470d9b4eed9, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 20bccf703b5041848a759049d765295f, type: 3}
-  name: "\uC6B4\uB3D9\uC7A5"
-  description: "\uACF5\uC0AC\uAC00 \uC774\uC81C \uB9C9 \uB05D\uB09C \uC6B4\uB3D9\uC7A5.
-    \uCD08\uB2F9 \uD559\uC0DD \uC218 4\uBA85"
+  icon: {fileID: 21300000, guid: e2c840dbc779b804c826d3ed50ba1483, type: 3}
+  name: "\uADF8\uB7F4\uC2F8\uD55C \uD559\uAD50"
+  description: "\uACF5\uC0AC\uAC00 \uC774\uC81C \uB9C9 \uB05D\uB0AC\uB2E4. \\n\uCD08\uB2F9
+    \uD559\uC0DD \uC218 4\uBA85"
   price: 20
   studentInterval: 0.25
   platformSprite: {fileID: 21300000, guid: 95debf79c3095684fb04ad32518c80fc, type: 3}

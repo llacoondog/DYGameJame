@@ -16,6 +16,10 @@ public class SkillManager : MonoBehaviour
     [SerializeField] Image skill2Icon;
     [SerializeField] Image skill3Icon;
 
+    [SerializeField] AudioClip skill1Sound;
+    [SerializeField] AudioClip skill2Sound;
+    [SerializeField] AudioClip skill3Sound;
+
     bool isSkill1Ready = false;
     bool isSkill2Ready = false;
     bool isSkill3Ready = false;
@@ -45,6 +49,7 @@ public class SkillManager : MonoBehaviour
     {
         if(isSkill1Ready == false) return;
         if(UpgradeManager.Instance.CheckSkillHaving(0) == false) return;
+        SoundManager.Instance.PlaySound(skill1Sound);
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(mousePosition);
 
@@ -61,6 +66,7 @@ public class SkillManager : MonoBehaviour
     {
         if(isSkill2Ready == false) return;
         if(UpgradeManager.Instance.CheckSkillHaving(1) == false) return;
+        SoundManager.Instance.PlaySound(skill2Sound);
         GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
         foreach(GameObject student in students)
         {
@@ -74,6 +80,7 @@ public class SkillManager : MonoBehaviour
         if(isSkill3Ready == false) return;
         if(UpgradeManager.Instance.CheckSkillHaving(2) == false) return;
         StudentSpawner.Instance.MakeFaster();
+        SoundManager.Instance.PlaySound(skill3Sound);
         StartCoroutine(Skill3Coroutine());
     }
 
