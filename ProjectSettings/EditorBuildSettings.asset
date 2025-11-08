@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Mars.unity
     guid: 266333da85987ff45b4a54b825fd1d76
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: 08d10340e0b219a458df211468a567d6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

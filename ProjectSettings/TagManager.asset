@@ -8,6 +8,8 @@ TagManager:
   - KillZone
   - Lab
   - Bait
+  - Alien
+  - Danger
   layers:
   - Default
   - TransparentFX

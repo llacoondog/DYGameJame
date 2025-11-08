@@ -8,6 +8,11 @@ public class MarsCutScene : MonoBehaviour
     [SerializeField] TextMeshProUGUI text1;
     [SerializeField] TextMeshProUGUI text2;
     [SerializeField] TextMeshProUGUI text3;
+
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject boss;
+    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject bg;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,5 +45,11 @@ public class MarsCutScene : MonoBehaviour
             text3.gameObject.SetActive(false);
         });
         yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
+
+        player.SetActive(true);
+        boss.SetActive(true);
+        canvas.SetActive(true);
+        bg.SetActive(true);
     }
 }
